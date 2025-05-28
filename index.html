@@ -5,122 +5,169 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BSMP TRANSLATOR</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #121212, #1f1f1f);
+  font-family: 'Montserrat', sans-serif;
+  color: #eee;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: hidden; /* Evita scroll vertical innecesario */
+}
+
+header {
+  padding: 40px 20px 10px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(255,255,255,0.2);
+}
+
+.container {
+  background: rgba(30, 30, 30, 0.9);
+  border-radius: 16px;
+  padding: 20px 20px 20px 20px;
+  max-width: 480px;
+  width: 95vw;
+  max-height: 85vh; /* Limitar altura para que no haya scroll interno excesivo */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.75);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #ddd;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-weight: 500;
+  color: #111;
+  background: #eee;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+  box-shadow: inset 0 2px 12px #00c8ff;
+}
+
+textarea {
+  width: 100%;
+  min-height: 150px;
+  max-height: 50vh;
+  padding: 15px;
+  border-radius: 14px;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #f0f0f0;
+  background-color: #121212;
+  resize: vertical;
+  box-shadow: inset 0 3px 12px rgba(255, 255, 255, 0.1);
+  overflow-y: auto;
+  transition: box-shadow 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+  flex-grow: 1;
+}
+
+textarea::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+textarea:focus {
+  box-shadow: inset 0 3px 15px #00c8ff;
+  outline: none;
+  background-color: #1a1a1a;
+}
+
+button {
+  background: #00c8ff;
+  border: none;
+  padding: 16px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border-radius: 22px;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 8px 22px rgba(0, 200, 255, 0.85);
+  font-family: 'Montserrat', sans-serif;
+}
+
+button:hover {
+  background: #0099cc;
+}
+
+#status {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #00c8ff;
+  min-height: 1.5em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+footer {
+  margin-top: auto;
+  padding: 15px 0;
+  color: #888;
+  font-weight: 600;
+  font-size: 1rem;
+  user-select: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 600px) {
   body {
-    margin: 0; padding: 0;
-    background: linear-gradient(135deg, #121212, #1f1f1f);
-    font-family: 'Montserrat', sans-serif;
-    color: #eee;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  header {
-    padding: 40px 20px 10px 20px;
-    text-align: center;
+    overflow-y: auto; /* Permitir scroll vertical en móviles si es necesario */
   }
   header h1 {
-    margin: 0;
-    font-size: 2.8rem;
-    font-weight: 700;
-    text-shadow: 0 2px 8px rgba(255,255,255,0.2);
+    font-size: 2.2rem;
   }
   .container {
-    background: rgba(30, 30, 30, 0.85);
-    border-radius: 16px;
-    padding: 30px 20px;
-    max-width: 420px;
-    width: 90vw;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 40px;
-  }
-  label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 6px;
-    color: #ddd;
-  }
-  input[type="text"], select {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    border: none;
-    outline: none;
-    font-weight: 500;
-    color: #111;
-    background: #eee;
-    box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
-    transition: box-shadow 0.3s ease;
-  }
-  input[type="text"]:focus, select:focus {
-    box-shadow: inset 0 2px 12px #00c8ff;
-  }
-  button {
-    background: #00c8ff;
-    border: none;
-    padding: 15px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    border-radius: 20px;
-    color: #111;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    box-shadow: 0 6px 16px rgba(0, 200, 255, 0.8);
-  }
-  button:hover {
-    background: #0099cc;
+    max-width: 98vw;
+    padding: 15px 15px;
+    max-height: 90vh;
   }
   textarea {
-    width: 100%;
-    height: 160px;
-    padding: 15px;
-    border-radius: 14px;
-    border: none;
+    min-height: 120px;
+    max-height: 60vh;
     font-size: 1.15rem;
-    font-weight: 500;
-    color: #111;
-    background: #f0f0f0;
-    resize: none;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+    padding: 12px;
   }
-  #status {
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #00c8ff;
-    min-height: 1.5em;
+  button {
+    font-size: 1.25rem;
+    padding: 14px 0;
   }
-  footer {
-    margin-top: auto;
-    padding: 15px 0;
-    color: #888;
-    font-weight: 600;
-    font-size: 1rem;
-    user-select: none;
-  }
-  @media (max-width: 500px) {
-    header h1 {
-      font-size: 2rem;
-    }
-    .container {
-      max-width: 95vw;
-      padding: 25px 15px;
-    }
-    textarea {
-      height: 140px;
-      font-size: 1rem;
-    }
-    button {
-      font-size: 1.1rem;
-      padding: 12px;
-    }
-  }
+}
+
+
 </style>
 </head>
 <body>
